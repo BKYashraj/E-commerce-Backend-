@@ -10,4 +10,18 @@ app.get("/",(req,res)=>{
   return res.send({message:"welcome to ecommerce api - node"})
 })
 
+const authRouters = require("./routes/auth.routes.js");
+app.use("/auth",authRouters);
+
+const userRouters = require("./routes/user.routes.js");
+app.use("/users",userRouters);
+
 module.exports={app};
+
+
+// {
+//   "firstName" : "Yashraj",
+//   "lastName" : "Desale",
+//   "email": "yashrajdesale1@gmail.com",
+//   "password" : "123456789"
+// }
