@@ -2,9 +2,9 @@ const Cart = require("../models/cart.model");
 
 async function createCart(user) {
   try {
-    const newCart = new Cart({user});
-    const savedCart = await newCart.save();
-    return savedCart;
+    const cart = new Cart({user});
+    const createdCart = await cart.save();
+    return createdCart;
   } catch (error) {
     throw new Error(error.message);
   }

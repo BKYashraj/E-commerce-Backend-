@@ -1,4 +1,4 @@
-const userService = require("../services/user.service.js");
+const userService = require("../services/user.services.js");
 const jwtProvider = require("../config/jwtProvider.js");
 const bcrypt = require("bcrypt");
 const cartService = require("../services/cart.service.js");
@@ -8,7 +8,7 @@ const register = async(req, res) => {
     const user = await userService.createUser(req.body);
     const jwt = jwtProvider.generateToken(user._id);
 
-    await cartService.createCart(user);
+    // await cartService.createCart(user);
 
     return res.status(200).send({jwt,message: "User registered successfully"});
 
@@ -18,17 +18,17 @@ const register = async(req, res) => {
 }
 
 const login = async(req, res) => {
-  const { email, password } = req.body;
+  const { password, email } = req.body;
   try{
     const user = await userService.findUserByEmail(email);
     if(!user){
-      return res.status(401).send({error: "Invalid credentials"});
+      return res.status(401).send({message: "Invalid credentials",email});
     }
 
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if(!isPasswordMatch){
-      return res.status(401).send({error: "Invalid credentials"});
+    if(!isPasswordValid){
+      return res.status(401).send({message: "Invalid credentials",email});
     }
 
     const jwt = jwtProvider.generateToken(user._id);
@@ -42,5 +42,5 @@ const login = async(req, res) => {
 
 module.exports = {
   register,
-  login,
+  login
 };

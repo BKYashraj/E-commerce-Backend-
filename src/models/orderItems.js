@@ -25,7 +25,7 @@ const orderItemSchema = new Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
+    ref: 'user',
     required: true,
   },
 });

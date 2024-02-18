@@ -26,11 +26,11 @@ const userSchema = new mongoose.Schema({
   mobile: {
     type: String,
   },
-  addresses: [
+  address: [
     {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "addresses",
-    },
+        ref: "addresses"
+    }
   ], 
   paymentInformation: [
     {
@@ -56,6 +56,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("users", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;

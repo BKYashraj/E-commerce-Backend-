@@ -1,5 +1,5 @@
-const User = require("../models/user.model");
-bcrypt = require("bcryptjs");
+const User = require("../models/user.model.js");
+bcrypt = require("bcrypt");
 const jwtProvider = require("../config/jwtProvider.js");
 const createUser = async (userData) => {
   try {
@@ -29,6 +29,10 @@ const createUser = async (userData) => {
 const findUserById = async (userId) => {
   try {
     const user = await User.findById(userId).populate("address");
+
+
+    // const user = await User.findById(userId);
+
     if (!user) {
       throw new Error("User not found with id : ", userId);
     }
