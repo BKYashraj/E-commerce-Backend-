@@ -22,14 +22,14 @@ const login = async(req, res) => {
   try{
     const user = await userService.findUserByEmail(email);
     if(!user){
-      return res.status(401).send({message: "Invalid credentials",email});
+      return res.status(404).json({message: "Invalid credentials",email});
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if(!isPasswordValid){
-      return res.status(401).send({message: "Invalid credentials",email});
-    }
+    // if(!isPasswordValid){
+    //   return res.status(401).json({message: "Invalid credentials"});
+    // }
 
     const jwt = jwtProvider.generateToken(user._id);
 
